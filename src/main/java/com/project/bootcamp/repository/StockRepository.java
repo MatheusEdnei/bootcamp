@@ -17,7 +17,7 @@ public interface StockRepository extends JpaRepository <Stock, Long>{
 	@Query("SELECT stock " +
 		    "FROM Stock stock " +
 		    "WHERE stock.name = :name AND stock.date = :date AND stock.id <> :id ")
-	Optional<Stock> findByStockUpdate(String string, LocalDate localDate, Long long1);
+	Optional<Stock> findByStockUpdate(String name, LocalDate date, Long id);
 
     @Query("SELECT stock " +
             "FROM Stock stock " +

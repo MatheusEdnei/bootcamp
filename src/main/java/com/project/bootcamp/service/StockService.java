@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,11 +49,12 @@ public class StockService {
 		return mapper.toDto(stock);
 	}
 
-	@Transactional
+	@Transactional(readOnly = true)
 	public List<StockDTO> findAll() {
 		return mapper.toDto(repository.findAll());
 	}
 
+	@Transactional(readOnly = true)
 	public StockDTO findById(Long id) {
 		return repository.findById(id).map(mapper::toDto).orElseThrow(NotFoundException::new);
 	}
@@ -65,6 +66,7 @@ public class StockService {
         return dto;
     }
     
+    @Transactional(readOnly = true)
     public List<StockDTO> findByToday() {
         return repository.findByToday(LocalDate.now()).map(mapper::toDto).orElseThrow(NotFoundException::new);
     }
